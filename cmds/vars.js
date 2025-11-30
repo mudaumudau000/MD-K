@@ -365,8 +365,8 @@ kord({
 }, toggle("rejectcall", "REJECT_CALL", "Reject Call"))
 
 kord({
-  cmd: "setsudo",
-  desc: "add a user to sudo",
+  cmd: "setguard",
+  desc: "add a user to guard",
   fromMe: true,
   type: "config",
 }, async (m, text) => {
@@ -385,17 +385,17 @@ if (text.trim().toLowerCase() === 'admins') {
   users = [u.split('@')[0]]
 }
 
-  const current = config().SUDO || ""
+  const current = config().GUARD || ""
   const cNumbers = current.split(',').map(n => n.trim()).filter(n => n)
   const existing = new Set(cNumbers)
   const toAdd = users.filter(u => !existing.has(u))
-  if (toAdd.length === 0) return await m.send("_User(s) already a sudo_")
+  if (toAdd.length === 0) return await m.send("_User(s) already a guard_")
   const nsn = [...existing, ...toAdd].join(",")
 
   if (m.client.platform === "render") {
     try {
-      await m.send(`\`\`\`${toAdd.join(', ')} added to sudo list...\n_Restarting\`\`\``)
-      await setVar("SUDO", nsn)
+      await m.send(`\`\`\`${toAdd.join(', ')} added to guard list...\n_Restarting\`\`\``)
+      await setVar("GUARD", nsn)
     } catch (er) {
       console.error(er)
       return await m.send(`error: ${er}`)
@@ -404,11 +404,11 @@ if (text.trim().toLowerCase() === 'admins') {
 
   const isExist = await envExists()
   if (isExist) {
-    await updateEnv("SUDO", nsn)
-    return await m.send(`\`\`\`${toAdd.join(', ')} added to sudo list...\`\`\``)
+    await updateEnv("GUARD", nsn)
+    return await m.send(`\`\`\`${toAdd.join(', ')} added to guard list...\`\`\``)
   } else {
-    await updateConfig("SUDO", nsn, { replace: true })
-    return await m.send(`\`\`\`${toAdd.join(', ')} added to sudo list...\`\`\``)
+    await updateConfig("GUARD", nsn, { replace: true })
+    return await m.send(`\`\`\`${toAdd.join(', ')} added to guard list...\`\`\``)
   }
   } catch (e) {
     console.log("cmd error", e)
@@ -417,8 +417,8 @@ if (text.trim().toLowerCase() === 'admins') {
 })
 
 kord({
-  cmd: "delsudo",
-  desc: "delete user from sudo list",
+  cmd: "delguard",
+  desc: "delete user from guard list",
   fromMe: true,
   type: "config",
 }, async (m, text) => {
@@ -437,16 +437,16 @@ if (text.trim().toLowerCase() === 'admins') {
   users = [u.split('@')[0]]
 }
 
-  const current = config().SUDO || ""
+  const current = config().GUARD || ""
   const cNumbers = current.split(',').map(n => n.trim()).filter(n => n)
   const filtered = cNumbers.filter(n => !users.includes(n))
-  if (filtered.length === cNumbers.length) return await m.send("_User(s) not in sudo list_")
+  if (filtered.length === cNumbers.length) return await m.send("_User(s) not in guards list_")
   const nsn = filtered.length ? filtered.join(",") : "false"
 
   if (m.client.platform === "render") {
     try {
-      await m.send(`\`\`\`${users.join(', ')} removed from sudo list...\n_Restarting\`\`\``)
-      await setVar("SUDO", nsn)
+      await m.send(`\`\`\`${users.join(', ')} removed from guard list...\n_Restarting\`\`\``)
+      await setVar("GUARDS", nsn)
     } catch (er) {
       console.error(er)
       return await m.send(`error: ${er}`)
@@ -455,11 +455,11 @@ if (text.trim().toLowerCase() === 'admins') {
 
   const isExist = await envExists()
   if (isExist) {
-    await updateEnv("SUDO", nsn)
-    return await m.send(`\`\`\`${users.join(', ')} removed from sudo list...\`\`\``)
+    await updateEnv("GUARDS", nsn)
+    return await m.send(`\`\`\`${users.join(', ')} removed from guards list...\`\`\``)
   } else {
-    await updateConfig("SUDO", nsn, { replace: true })
-    return await m.send(`\`\`\`${users.join(', ')} removed from sudo list...\`\`\``)
+    await updateConfig("GUARDS", nsn, { replace: true })
+    return await m.send(`\`\`\`${users.join(', ')} removed from guards list...\`\`\``)
   }
   } catch (e) {
     console.log("cmd error", e)
@@ -469,22 +469,22 @@ if (text.trim().toLowerCase() === 'admins') {
 
 
 kord({
-cmd: "getsudo|allsudo",
-  desc: "get all sudos",
+cmd: "getguards|allguards|guards",
+  desc: "get all guard",
   fromMe: wtype,
   type: "config",
 }, async (m, text) => {
   try {
-    var sudo = (config().SUDO || "")
+    var sudo = (config().GUARD || "")
     .split(",")
     .map(n => n.trim())
     .filter(n => n)
-    if (sudo.length == 0) return await m.send("_Sudo list is empty_")
-    var msg = "「 SUDO LIST 」\n"
+    if (sudo.length == 0) return await m.send("_guards list is empty_")
+    var msg = "「 ROYAL PROTECTERS LIST 」\n"
     var mj = []
-    for (var s of sudo) {
+    for (var s of guard) {
     var jid = s.trim() + '@s.whatsapp.net'
-    msg += `❑ @${s}\n`
+    msg += `彡 @${s}\n`
     mj.push(jid)
     }
     var fmsg = `\`\`\`${msg}\`\`\``
@@ -600,7 +600,7 @@ if (text.trim().toLowerCase() === 'admins') {
 })
 
 kord({
-cmd: "getmods|getmod|allmods",
+cmd: "mods",
   desc: "get all mods",
   fromMe: wtype,
   type: "config",
@@ -612,11 +612,11 @@ cmd: "getmods|getmod|allmods",
     .filter(n => n)
     
     if (modList.length == 0)
-    return await m.send("_Mod list is empty_")
-    var msg = "「 MOD LIST 」\n"
+    return await m.send("_Mods list is empty_")
+    var msg = "「 ROYAL MOD LIST 」\n"
     var mentionJids = []
     for (var u of modList) {
-    msg += `❑ @${u}\n`
+    msg += `:彡 @${u}\n`
     mentionJids.push(u + '@s.whatsapp.net')
     }
     var fmsg = `\`\`\`${msg}\`\`\``
