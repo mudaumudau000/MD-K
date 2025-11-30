@@ -62,33 +62,33 @@ kord({
       ).join('\n')
       const formattedCmds = await changeFont(cmdList, getRandomFont())
       
-      let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
+      let menu = `\`\`\`┌───── ⨺⃝Х ──────┐
  ✇ ▸ Category: ${actualType.toUpperCase()}
  ✇ ▸ Commands: ${types[actualType].length}
  ✇ ▸ Prefix: ${prefix}
-└──────═━┈┈━═──────┘\`\`\`
+└───────────────────┘\`\`\`
 ${readmore}
 
      ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─┉─ ⨺⃝Х ─┉─    ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+┕   ─┉─ ⨺⃝Х ─┉─   ┙ 
 
 Tip: Use ${prefix}menu to see all categories`
       
       const bodyContent = `     ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─┉─ ⨺⃝Х ─┉─    ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+┕   ─┉─ ⨺⃝Х ─┉─    ┙ 
 
 Tip: Use ${prefix}menu to see all categories`
       
       const styledBody = await changeFont(bodyContent, getRandomFont())
-      const final = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
+      const final = `\`\`\`┌────── ⨺⃝Х ──────┐
  ✇ ▸ Category: ${actualType.toUpperCase()}
  ✇ ▸ Commands: ${types[actualType].length}
  ✇ ▸ Prefix: ${prefix}
-└────────═━┈┈━═────────┘\`\`\`
+└──────────────────────┘\`\`\`
 ${readmore}
 
 ${styledBody}`
@@ -100,14 +100,10 @@ ${styledBody}`
     const uptime = await secondsToHms(process.uptime())
     const memoryUsage = format(os.totalmem() - os.freemem())
     
-    let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
+    let menu = `\`\`\`┌───── ⨺⃝Х ─────┐
  ✇ ▸ Owner: ${config().OWNER_NAME}
- ✇ ▸ User: ${m.pushName}
- ✇ ▸ Plugins: ${commands.length}
- ✇ ▸ Uptime: ${uptime}
- ✇ ▸ Memory: ${memoryUsage}
- ✇ ▸ Version: v${version}
- ✇ ▸ Platform: ${m.client.platform()}
+ Name: ${config().BOT_NAME}
+ Prefix: . 
 └───────═━┈┈━═──────┘\`\`\`
 ${readmore}
 
@@ -121,9 +117,9 @@ ${readmore}
       const tty = await changeFont(type.toUpperCase(), "monospace")
       
       return ` ┏ ${tty} ┓
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─┉─ ⨺⃝Х ─┉─    ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ `
+┕   ─┉─ ⨺⃝Х ─┉─   ┙ `
     })
 
     const resolvedCategoryList = await Promise.all(categoryList)
