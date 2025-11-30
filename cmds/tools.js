@@ -86,9 +86,9 @@ kord({
   if (entries.length === 0) {
     return await m.send(`_No sticker commands have been set yet._`);
   }
-  let text = `❏ *Sticker Commands:*\n\n`;
+  let text = `彡 *Sticker Commands:*\n\n`;
   for (const [hash, cmd] of entries) {
-    text += `❏ *${cmd}*\n_↳ hash:_ \`${hash.slice(0, 16)}...\`\n\n`;
+    text += `彡 *${cmd}*\n_↳ hash:_ \`${hash.slice(0, 16)}...\`\n\n`;
   }
   return await m.send(text.trim());
   } catch (e) {
@@ -318,7 +318,7 @@ kord({
 })
 
 kord({
-  cmd: "mention",
+  cmd: "mention|tagme",
   type: "tools",
   desc: "set action to be done when owner is mentioned",
   fromMe: true,
@@ -328,7 +328,7 @@ kord({
     var mData =  await getData("mention_config") || {
   active: false,
   action: "",
-  emoji: "🤍",
+  emoji: "🫰",
   text: ""
 };
     const args = text.split(" ");
@@ -363,14 +363,14 @@ kord({
 _*Provide an Option*_
 _.mention off_
 _.mention -status_
-_.mention -react 🤍_ (reacts when the owner is mentioned)
+_.mention -react 🫰_ (reacts when the owner is mentioned)
 _.mention -text Your Text_ (sends custom text when owner is mentioned, Example: \'Your Text \')`);
         }
       } else {
         return await m.send(`_ *Provide an Option*_
 _.mention off_
 _.mention -status_
-_.mention -react 🤍_ (reacts when the owner is mentioned)
+_.mention -react 🫩_ (reacts when the owner is mentioned)
 _.mention -text Your Text_ (sends custom text when owner is mentioned, Example: \'Your Text \')`);
       }
     } catch (e) {
