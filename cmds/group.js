@@ -225,7 +225,7 @@ cmd: "kick",
 })
 
 kord({
-cmd: "promote",
+cmd: "promote|pro",
   desc: "promote a member to admin",
   fromMe: wtype,
   gc: true,
@@ -248,7 +248,7 @@ cmd: "promote",
 })
 
 kord({
-cmd: "demote",
+cmd: "demote|dem",
   desc: "demote an admin to member",
   fromMe: wtype,
   gc: true,
@@ -271,7 +271,7 @@ cmd: "demote",
 })
 
 kord({
-cmd: "mute",
+cmd: "close",
   desc: "mute a group to allow only admins to send message",
   fromMe: wtype,
   gc: true,
@@ -290,7 +290,7 @@ cmd: "mute",
 })
 
 kord({
-cmd: "unmute",
+cmd: "open",
   desc: "unmute a group to allow all members to send message",
   fromMe: wtype,
   gc: true,
@@ -363,13 +363,13 @@ cmd: "tag",
   
   if (text === "all" || text === "everyone") {
     participants.forEach((p, i) => {
-      msg += `❐ ${i + 1}. @${p.jid.split('@')[0]}\n`;
+      msg += `彡 ${i + 1}. @${p.jid.split('@')[0]}\n`;
     });
     await m.send(msg, { mentions: participants.map(a => a.jid) });
   } 
   else if (text === "admin" || text === "admins") {
     admins.forEach((admin, i) => {
-      msg += `❐ ${i + 1}. @${admin.split('@')[0]}\n`;
+      msg += `彡 ${i + 1}. @${admin.split('@')[0]}\n`;
     });
     return await m.send(msg, { mentions: admins });
   } 
@@ -419,7 +419,7 @@ cmd: "tagall",
 
 
 kord({
-  cmd: "creategc",
+  cmd: "creategc|makegc",
   desc: "create a group",
   fromMe: true,
   type: "group",
@@ -729,7 +729,7 @@ cmd: "events|gcevent|grpevents",
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━`
     
     gdata[jid] = gdata[jid] || {
-      events: false,
+      events: true,
       add: false,
       remove: false,
       promote: false,
@@ -970,7 +970,7 @@ ${c} off\`\`\``
     if (!data[m.chat].permitted.includes(url)) {
     data[m.chat].permitted.push(url)
     await storeData("antilink", data)
-    return await m.send(`\`\`\`▸ ❏ URL allowed: ${url}\`\`\``)
+    return await m.send(`\`\`\`▸ 彡 URL allowed: ${url}\`\`\``)
     } else {
     return await m.send(`\`\`\`URL already in allowed list: ${url}\`\`\``)
     }
@@ -984,7 +984,7 @@ ${c} off\`\`\``
     if (index > -1) {
     data[m.chat].permitted.splice(index, 1)
     await storeData("antilink", data)
-    return await m.send(`\`\`\`▸ ❏ URL removed: ${url}\`\`\``)
+    return await m.send(`\`\`\`▸ 彡 URL removed: ${url}\`\`\``)
     } else {
     return await m.send(`\`\`\`URL not found in allowed list: ${url}\`\`\``)
     }
@@ -2147,7 +2147,7 @@ const listOnlineOffline = async (m, text, store, mode, sock) => {
 }
 
 kord({
-  cmd: "listonline",
+  cmd: "listonline|online",
   desc: "List online users by interval",
   fromMe: wtype,
   type: "tools",
@@ -2156,7 +2156,7 @@ kord({
 }, async (m, text, c, store) => listOnlineOffline(m, text, store, "online", m.client))
 
 kord({
-  cmd: "listoffline",
+  cmd: "listoffline|offline",
   desc: "List offline users by interval",
   fromMe: wtype,
   type: "tools",
